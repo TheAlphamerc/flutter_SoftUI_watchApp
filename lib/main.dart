@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_soft_ui/src/theme/lightColors.dart';
 import 'package:flutter_soft_ui/src/theme/darkColors.dart';
 import 'package:flutter_soft_ui/src/widget/customClipPainter.dart';
 import 'package:flutter_soft_ui/src/widget/softContainer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+     systemNavigationBarColor: Color(0xff141414), // navigation bar color
+     statusBarColor: Color(0xff141414), // status bar color
+   ));
+
+} 
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -74,10 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           _icon(Icons.filter),
-          _icon(Icons.watch),
+          _watchIcon(),
           _icon(Icons.web_asset),
           _icon(Icons.wb_auto),
-
         ],
       ),
     );
@@ -90,12 +97,57 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Icon(icon, color:Theme.of(context).iconTheme.color),
     );
   }
-  
+  Widget _watchIcon(){
+    return Container(
+      height: 70,
+      width: 70,
+       decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.blue,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xff2c53b2),Color(0xff6e3c7d),],
+          stops: [.0,1],
+          tileMode: TileMode.clamp
+        )
+       ),
+       child: Icon(Icons.watch, color:Theme.of(context).iconTheme.color),
+    );
+  }
+  Widget _homeIcon(){
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8,),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.blue,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xff2c53b2),Color(0xff6e3c7d),]
+        )
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+           Icon(Icons.home),
+           VerticalDivider(width: 10,thickness: 2,color: Color(0xff35489b),),
+           Text('Home',style:  GoogleFonts.montserrat(
+               textStyle: Theme.of(context).textTheme.display1,
+               fontSize: 15,
+               fontWeight: FontWeight.w700,
+               fontStyle: FontStyle.normal,
+            ),)
+        ],
+      ),
+    );
+  }
   Widget _pentaContainer(){
     return  Container(
       width: MediaQuery.of(context).size.width ,
-      height: MediaQuery.of(context).size.height * .25,
-      margin: EdgeInsets.only(top: 20),
+      height: MediaQuery.of(context).size.height * .3,
+      margin: EdgeInsets.only(top: 100),
       alignment: Alignment.center,
       child: ClipShadow(
         boxShadow:  <BoxShadow>[
@@ -116,22 +168,70 @@ class _MyHomePageState extends State<MyHomePage> {
                 // BoxShadow(color: Color(0xffffffff),),
               ],
             ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                
+                Padding(
+                      padding: EdgeInsets.only(left: 40,top: 50),
+                        child: Text(
+                        'Cyberwatch',
+                        style: GoogleFonts.montserrat(
+                          textStyle: Theme.of(context).textTheme.display1,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.normal,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 40),
+                        child: Text(
+                        'Lab 01',
+                        style: GoogleFonts.londrinaOutline(
+                          textStyle: Theme.of(context).textTheme.display1,
+                          fontSize: 28,
+                          letterSpacing: 2,
+                          color: DarkColor.lightGrey,
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.normal,
+                        ),
+                      ),
+                    ),
+                     Padding(
+                      padding: EdgeInsets.only(left: 40,top: 20,bottom: 20),
+                        child: Text(
+                        'release: 23.06.2020',
+                        style: GoogleFonts.montserrat(
+                          textStyle: Theme.of(context).textTheme.display1,
+                          fontSize: 15,
+                          color: Color(0xff141414),
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.normal,
+                        ),
+                      ),
+                    ),
+              ],
+            ),
         ),
       )
     );
  }
  Widget _bottomNavBar(){
   return SoftContainer(
-    height: 60,
+    height: 65,
     width: MediaQuery.of(context).size.width - 40,
     cornerRadius: 15,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        IconButton(
-          onPressed: (){},
-          icon: Icon(Icons.home,size: 30,),
-        ),
+         _homeIcon(),
+        //  SizedBox(width: 20,),
+        // IconButton(
+        //   onPressed: (){},
+        //   icon: Icon(Icons.home,size: 30,),
+        // ),
         IconButton(
           onPressed: (){},
           icon: Icon(Icons.settings,size: 30,),
@@ -152,11 +252,11 @@ class _MyHomePageState extends State<MyHomePage> {
   return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        SizedBox(width: 20,),
-        SoftContainer(height: 20,width: 20,cornerRadius: 10,),
-        SoftContainer(height: 20,width: 20,cornerRadius: 10,),
-        SoftContainer(height: 20,width: 20,cornerRadius: 10,),
-        SizedBox(width: 20,),
+        SizedBox(width: MediaQuery.of(context).size.width * .2,),
+        SoftContainer(height: 12,width: 12,cornerRadius: 10,),
+        SoftContainer(height: 12,width: 12,cornerRadius: 10,),
+        SoftContainer(height: 12,width: 12,cornerRadius: 10,),
+        SizedBox(width: MediaQuery.of(context).size.width * .2,),
       ],
     );
  }

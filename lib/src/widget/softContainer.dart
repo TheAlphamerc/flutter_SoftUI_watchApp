@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_soft_ui/src/theme/theme.dart';
 
 class SoftContainer extends StatelessWidget {
   final Widget child;
@@ -15,12 +16,7 @@ class SoftContainer extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(cornerRadius)),
         color:  Theme.of(context).cardTheme.color,
-        // border: Border.all(color: Color(0xff000000)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(color: Color(0xff000000), offset: Offset(2,2),blurRadius: 10),
-          BoxShadow(color: Theme.of(context).accentColor, offset: Offset(-2, -2),blurRadius: 10),
-          // BoxShadow(color: Color(0xffffffff),),
-        ],
+        boxShadow: shadow
       ),
       child: child,
     );

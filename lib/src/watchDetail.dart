@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_soft_ui/src/theme/darkColors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'theme/theme.dart';
 import 'widget/customClipPainter.dart';
 import 'widget/softContainer.dart';
@@ -15,6 +14,7 @@ class WatchDetailPage extends StatefulWidget {
 }
 
 class _WatchDetailPageState extends State<WatchDetailPage> {
+
   Widget appbarWidget() {
     return Container(
       width: MediaQuery.of(context).size.width - 40,
@@ -76,23 +76,9 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
     return Container(
       height: 50,
       width: 50,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.blue,
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              stops: [
-                .2,
-                .4,
-                .8
-              ],
-              colors: [
-                Color(0xff2c53b2),
-                Color(0xff3b4ea7),
-                Color(0xff6e3c7d),
-              ])),
-      child: Icon(Icons.watch, color: Theme.of(context).iconTheme.color),
+      decoration: _decoration(context, borderRadius: 10),
+      child:
+          Icon(Icons.watch, color: Theme.of(context).colorScheme.onSecondary),
     );
   }
 
@@ -107,40 +93,18 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
           child: Hero(
               tag: 'pentaContainer',
               child: ClipShadow(
-                boxShadow: [
-                  BoxShadow(
-                      color: DarkColor.Darker,
-                      offset: Offset(offset, offset),
-                      blurRadius: blurRadius,
-                      spreadRadius: spreadRadius),
-                  BoxShadow(
-                      color: DarkColor.Brighter,
-                      offset: Offset(-offset, -offset),
-                      blurRadius: blurRadius,
-                      spreadRadius: spreadRadius),
-                ],
+                boxShadow: AppTheme.getshadow(context),
                 clipper: ClipPainter(),
                 child: Container(
                   height: MediaQuery.of(context).size.height * .5,
                   width: MediaQuery.of(context).size.width * .85,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                        topRight: Radius.circular(40)),
-                    color: Color(0xff101010),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                          color: Color(0xff000000),
-                          offset: Offset(2, 2),
-                          blurRadius: 10),
-                      BoxShadow(
-                          color: Theme.of(context).accentColor,
-                          offset: Offset(-2, -2),
-                          blurRadius: 10),
-                    ],
-                  ),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                          topRight: Radius.circular(40)),
+                      color: Theme.of(context).backgroundColor),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -222,14 +186,14 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
                     Theme.of(context).textTheme.display1.copyWith(fontSize: 18),
               ),
             ),
-            _homeIcon(),
+            _preOrderButton(),
           ],
         ),
       ),
     );
   }
 
-  Widget _homeIcon() {
+  Widget _preOrderButton() {
     return Container(
       width: MediaQuery.of(context).size.width * .4,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
@@ -245,10 +209,10 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
                 .8
               ],
               colors: [
-                Color(0xff2c53b2),
-                Color(0xff3b4ea7),
-                Color(0xff524693),
-                Color(0xff6e3c7d),
+                Theme.of(context).colorScheme.secondary,
+                Theme.of(context).colorScheme.secondaryVariant,
+                Theme.of(context).colorScheme.primaryVariant,
+                Theme.of(context).colorScheme.primary,
               ])),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -256,34 +220,28 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
           Text(
             'Preorder',
             style: GoogleFonts.montserrat(
-              textStyle: Theme.of(context).textTheme.display1,
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-              fontStyle: FontStyle.normal,
-            ),
+                textStyle: Theme.of(context).textTheme.display1,
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.normal,
+                color: Theme.of(context).colorScheme.onSecondary),
           ),
           Expanded(
             child: SizedBox(),
-          ),
-          VerticalDivider(
-            width: 0,
-            thickness: 1,
-            color: Color(0xff573d7f),
           ),
           Container(
             width: 4,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Color(0xff6e3c7d),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                      color: Color(0xff6b4a98),
-                      offset: Offset(-2, 0),
-                      blurRadius: 2,
+                      color: Theme.of(context).colorScheme.secondary,
+                      offset: Offset(-1, 0),
+                      blurRadius: 8,
                       spreadRadius: 0),
                   BoxShadow(
-                      color: Color(0xff6f3c7b),
-                      offset: Offset(2, 0),
+                      color: Theme.of(context).colorScheme.primary,
+                      offset: Offset(1, 0),
                       blurRadius: 3,
                       spreadRadius: 0),
                 ]),
@@ -295,10 +253,29 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
     );
   }
 
+  BoxDecoration _decoration(BuildContext context, {double borderRadius = 0}) {
+    return BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+      gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          stops: [
+            .2,
+            .4,
+            .7
+          ],
+          colors: [
+            Theme.of(context).colorScheme.secondary,
+            Theme.of(context).colorScheme.secondaryVariant,
+            Theme.of(context).colorScheme.primary,
+          ]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xff101010),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: Container(
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(

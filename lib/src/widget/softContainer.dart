@@ -16,7 +16,7 @@ class SoftContainer extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(cornerRadius)),
         color:  Theme.of(context).cardTheme.color,
-        boxShadow: shadow
+        boxShadow: AppTheme.getshadow(context)
       ),
       child: child,
     );

@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_soft_ui/src/theme/darkColors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../main.dart';
 import 'theme/theme.dart';
 import 'widget/bottomNavigationbar.dart';
 import 'widget/customClipPainter.dart';
 import 'widget/softContainer.dart';
 
 class MyHomePage extends StatefulWidget {
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var block = Bloc();
+  bool darkThemeEnabled = false;
   Widget appbarWidget() {
     return Container(
       width: MediaQuery.of(context).size.width - 40,
@@ -55,13 +60,18 @@ class _MyHomePageState extends State<MyHomePage> {
               )),
           Hero(
               tag: 'cartIcon',
-              child: SoftContainer(
-                height: 50,
-                width: 50,
-                cornerRadius: 25,
-                child: Icon(FontAwesomeIcons.shareAlt,
-                    color: Theme.of(context).iconTheme.color),
-              ))
+              child: GestureDetector(
+                  onTap: () {
+                    darkThemeEnabled = !darkThemeEnabled;
+                    bloc.changeTheme(darkThemeEnabled);
+                  },
+                  child: SoftContainer(
+                    height: 50,
+                    width: 50,
+                    cornerRadius: 25,
+                    child: Icon(FontAwesomeIcons.lightbulb,
+                        color: Theme.of(context).iconTheme.color),
+                  )))
         ],
       ),
     );
@@ -95,23 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       height: 70,
       width: 70,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.blue,
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              stops: [
-                .2,
-                .4,
-                .7
-              ],
-              colors: [
-                Color(0xff2c53b2),
-                Color(0xff3b4ea7),
-                Color(0xff6e3c7d),
-              ])),
-      child: Icon(Icons.watch, color: Theme.of(context).iconTheme.color),
+      decoration: AppTheme.getDecoration(context, borderRadius: 10),
+      child:
+          Icon(Icons.watch, color: Theme.of(context).colorScheme.onSecondary),
     );
   }
 
@@ -130,18 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Hero(
                 tag: 'pentaContainer',
                 child: ClipShadow(
-                  boxShadow: [
-                    BoxShadow(
-                        color: DarkColor.Darker,
-                        offset: Offset(offset, offset),
-                        blurRadius: blurRadius,
-                        spreadRadius: spreadRadius),
-                    BoxShadow(
-                        color: DarkColor.Brighter,
-                        offset: Offset(-offset, -offset),
-                        blurRadius: blurRadius,
-                        spreadRadius: spreadRadius),
-                  ],
+                  boxShadow: AppTheme.getshadow(context),
                   clipper: ClipPainter(),
                   child: Container(
                     height: MediaQuery.of(context).size.width * .65,
@@ -152,17 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           bottomLeft: Radius.circular(20),
                           bottomRight: Radius.circular(20),
                           topRight: Radius.circular(40)),
-                      color: Color(0xff101010),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            color: Color(0xff000000),
-                            offset: Offset(2, 2),
-                            blurRadius: 10),
-                        BoxShadow(
-                            color: Theme.of(context).accentColor,
-                            offset: Offset(-2, -2),
-                            blurRadius: 10),
-                      ],
+                      color: Theme.of(context).backgroundColor,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             style: GoogleFonts.montserrat(
                               textStyle: Theme.of(context).textTheme.display1,
                               fontSize: 15,
-                              color: Color(0xff797878),
+                              color: DarkColor.subTitleTextColor,
                               fontWeight: FontWeight.w700,
                               fontStyle: FontStyle.normal,
                             ),
@@ -254,7 +229,7 @@ class _MyHomePageState extends State<MyHomePage> {
             text,
             style: TextStyle(
               color: enable
-                  ? DarkColor.titleTextColor
+                  ? Theme.of(context).textTheme.display1.color
                   : DarkColor.subTitleTextColor,
               fontWeight: FontWeight.bold,
             ),
@@ -263,19 +238,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             height: 3,
             width: enable ? 70 : 0,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [
-                    .1,
-                    .5
-                  ],
-                  colors: [
-                    Color(0xff2c53b2),
-                    Color(0xff6e3c7d),
-                  ]),
-            ),
+            decoration: AppTheme.getDecoration(context, borderRadius: 10),
           ),
         ],
       ),
@@ -313,8 +276,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: Theme.of(context).backgroundColor,
+        statusBarColor: Theme.of(context).backgroundColor));
     return Scaffold(
-        backgroundColor: Color(0xff101010),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: Container(
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(

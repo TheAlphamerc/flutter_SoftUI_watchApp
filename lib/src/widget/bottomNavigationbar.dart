@@ -23,28 +23,29 @@ class _BottomNavigationbarState extends State<BottomNavigationbar> {
               end: Alignment.bottomRight,
               stops:[.2,.4,.7,.9],
               colors: [
-                Color(0xff1b58c0),
-                Color(0xff2c53b2),
-                Color(0xff5d438b),
-                Color(0xff6e3c7d),
+                Theme.of(context).colorScheme.secondary,
+                Theme.of(context).colorScheme.secondaryVariant,
+                Theme.of(context).colorScheme.primaryVariant,
+                Theme.of(context).colorScheme.primary,
               ])),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(Icons.home),
+          Icon(Icons.home,color:  Theme.of(context).colorScheme.onSecondary),
           Container(
             width: 3,
             margin: EdgeInsets.symmetric(horizontal:10),
-            decoration: BoxDecoration(
-              color:  Color(0xff34489b),
+            decoration: 
+            BoxDecoration(
+              color:  Theme.of(context).colorScheme.secondary,
               boxShadow: <BoxShadow>[
                BoxShadow(
-                   color:  Color(0xff36489a),
+                   color:  Theme.of(context).colorScheme.secondaryVariant,
                    offset: Offset(-2, 0),
                    blurRadius: 6,
                    spreadRadius: 0),
                BoxShadow(
-                   color:  Color(0xff4356ae),
+                   color:  Theme.of(context).colorScheme.secondaryVariant,
                    offset: Offset(2, 0),
                    blurRadius: 3,
                    spreadRadius: 0),
@@ -58,13 +59,14 @@ class _BottomNavigationbarState extends State<BottomNavigationbar> {
               fontSize: 15,
               fontWeight: FontWeight.w700,
               fontStyle: FontStyle.normal,
+              color:Theme.of(context).colorScheme.onSecondary
             ),
           )
         ],
       ),
     );
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return SoftContainer(

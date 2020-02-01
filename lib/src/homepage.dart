@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_soft_ui/src/theme/darkColors.dart';
+import 'theme/darkColors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../main.dart';
 import 'theme/theme.dart';
 import 'widget/bottomNavigationbar.dart';
@@ -11,13 +10,11 @@ import 'widget/customClipPainter.dart';
 import 'widget/softContainer.dart';
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var block = Bloc();
   bool darkThemeEnabled = false;
   Widget appbarWidget() {
     return Container(

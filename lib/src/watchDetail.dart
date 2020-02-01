@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_soft_ui/src/theme/darkColors.dart';
+import 'theme/darkColors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'theme/theme.dart';
@@ -14,14 +14,13 @@ class WatchDetailPage extends StatefulWidget {
 }
 
 class _WatchDetailPageState extends State<WatchDetailPage> {
-
   Widget appbarWidget() {
     return Container(
       width: MediaQuery.of(context).size.width - 40,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          InkWell(
+          GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
               },
@@ -144,7 +143,7 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
                           style: GoogleFonts.lato(
                             textStyle: Theme.of(context).textTheme.display1,
                             fontSize: 18,
-                            color: DarkColor.titleTextColor.withAlpha(200),
+                            color: DarkColor.subTitleTextColor,
                             fontWeight: FontWeight.w700,
                             fontStyle: FontStyle.normal,
                           ),

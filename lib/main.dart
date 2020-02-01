@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'src/bloc/bloc.dart';
 import 'src/homepage.dart';
 import 'src/theme/theme.dart';
 import 'src/watchDetail.dart';
@@ -12,6 +13,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  
   
   @override
   Widget build(BuildContext context) {
@@ -36,13 +38,6 @@ class MyApp extends StatelessWidget {
           }
         }),
     );
-    
   }
 }
-class Bloc {
-  final _themeController = StreamController<bool>();
-  get changeTheme => _themeController.sink.add;
-  get darkThemeEnabled => _themeController.stream;
-}
-
 final bloc = Bloc();

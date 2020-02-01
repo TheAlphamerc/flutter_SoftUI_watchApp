@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_soft_ui/src/widget/softContainer.dart';
+import 'softContainer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomNavigationbar extends StatefulWidget {

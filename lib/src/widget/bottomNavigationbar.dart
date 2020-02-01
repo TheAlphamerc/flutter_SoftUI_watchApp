@@ -21,18 +21,35 @@ class _BottomNavigationbarState extends State<BottomNavigationbar> {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
+              stops:[.2,.4,.7,.9],
               colors: [
+                Color(0xff1b58c0),
                 Color(0xff2c53b2),
+                Color(0xff5d438b),
                 Color(0xff6e3c7d),
               ])),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Icon(Icons.home),
-          VerticalDivider(
-            width: 10,
-            thickness: 2,
-            color: Color(0xff35489b),
+          Container(
+            width: 3,
+            margin: EdgeInsets.symmetric(horizontal:10),
+            decoration: BoxDecoration(
+              color:  Color(0xff34489b),
+              boxShadow: <BoxShadow>[
+               BoxShadow(
+                   color:  Color(0xff36489a),
+                   offset: Offset(-2, 0),
+                   blurRadius: 6,
+                   spreadRadius: 0),
+               BoxShadow(
+                   color:  Color(0xff4356ae),
+                   offset: Offset(2, 0),
+                   blurRadius: 3,
+                   spreadRadius: 0),
+             ]
+           ),
           ),
           Text(
             'Home',

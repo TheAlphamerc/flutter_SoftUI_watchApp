@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_soft_ui/src/theme/darkColors.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'theme/theme.dart';
@@ -19,20 +20,48 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          SoftContainer(
-            height: 50,
-            width: 50,
-            cornerRadius: 25,
-            child: Icon(Icons.format_list_bulleted,
-                color: Theme.of(context).iconTheme.color),
-          ),
-          SoftContainer(
-            height: 50,
-            width: 50,
-            cornerRadius: 25,
-            child: Icon(Icons.card_giftcard,
-                color: Theme.of(context).iconTheme.color),
-          )
+          Hero(
+              tag: 'topLeftIcon',
+              child: SoftContainer(
+                height: 50,
+                width: 50,
+                cornerRadius: 25,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Divider(
+                      height: 10,
+                      indent: 12,
+                      endIndent: 18,
+                      color: Theme.of(context).iconTheme.color,
+                      thickness: 2,
+                    ),
+                    Divider(
+                      height: 8,
+                      indent: 12,
+                      endIndent: 10,
+                      color: Theme.of(context).iconTheme.color,
+                      thickness: 2,
+                    ),
+                    Divider(
+                      height: 10,
+                      indent: 12,
+                      endIndent: 18,
+                      color: Theme.of(context).iconTheme.color,
+                      thickness: 2,
+                    ),
+                  ],
+                ),
+              )),
+          Hero(
+              tag: 'cartIcon',
+              child: SoftContainer(
+                height: 50,
+                width: 50,
+                cornerRadius: 25,
+                child: Icon(FontAwesomeIcons.shareAlt,
+                    color: Theme.of(context).iconTheme.color),
+              ))
         ],
       ),
     );
@@ -44,9 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          _icon(Icons.filter),
+          _icon(FontAwesomeIcons.slidersH),
           _watchIcon(),
-          _icon(Icons.web_asset),
+          _icon(FontAwesomeIcons.yinYang),
           _icon(Icons.wb_auto),
         ],
       ),
@@ -72,12 +101,16 @@ class _MyHomePageState extends State<MyHomePage> {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
+              stops: [
+                .2,
+                .4,
+                .7
+              ],
               colors: [
                 Color(0xff2c53b2),
+                Color(0xff3b4ea7),
                 Color(0xff6e3c7d),
-              ],
-              stops: [.0, 1],
-              tileMode: TileMode.clamp)),
+              ])),
       child: Icon(Icons.watch, color: Theme.of(context).iconTheme.color),
     );
   }
@@ -90,88 +123,95 @@ class _MyHomePageState extends State<MyHomePage> {
           height: MediaQuery.of(context).size.height * .3,
           margin: EdgeInsets.only(top: 100),
           alignment: Alignment.center,
-          child: ClipShadow(
-            boxShadow: [
-              BoxShadow(
-                  color: DarkColor.Darker,
-                  offset: Offset(offset, offset),
-                  blurRadius: blurRadius,
-                  spreadRadius: spreadRadius),
-              BoxShadow(
-                  color: DarkColor.Brighter,
-                  offset: Offset(-offset, -offset),
-                  blurRadius: blurRadius,
-                  spreadRadius: spreadRadius),
-            ],
-            clipper: ClipPainter(),
-            child: Container(
-              height: MediaQuery.of(context).size.width * .65,
-              width: MediaQuery.of(context).size.width * .6,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                    topRight: Radius.circular(40)),
-                color: Color(0xff101010),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      color: Color(0xff000000),
-                      offset: Offset(2, 2),
-                      blurRadius: 10),
-                  BoxShadow(
-                      color: Theme.of(context).accentColor,
-                      offset: Offset(-2, -2),
-                      blurRadius: 10),
-                  // BoxShadow(color: Color(0xffffffff),),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 40, top: 50),
-                    child: Text(
-                      'Cyberwatch',
-                      style: GoogleFonts.montserrat(
-                        textStyle: Theme.of(context).textTheme.display1,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        fontStyle: FontStyle.normal,
-                      ),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed('/detail');
+            },
+            child: Hero(
+                tag: 'pentaContainer',
+                child: ClipShadow(
+                  boxShadow: [
+                    BoxShadow(
+                        color: DarkColor.Darker,
+                        offset: Offset(offset, offset),
+                        blurRadius: blurRadius,
+                        spreadRadius: spreadRadius),
+                    BoxShadow(
+                        color: DarkColor.Brighter,
+                        offset: Offset(-offset, -offset),
+                        blurRadius: blurRadius,
+                        spreadRadius: spreadRadius),
+                  ],
+                  clipper: ClipPainter(),
+                  child: Container(
+                    height: MediaQuery.of(context).size.width * .65,
+                    width: MediaQuery.of(context).size.width * .6,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                          topRight: Radius.circular(40)),
+                      color: Color(0xff101010),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: Color(0xff000000),
+                            offset: Offset(2, 2),
+                            blurRadius: 10),
+                        BoxShadow(
+                            color: Theme.of(context).accentColor,
+                            offset: Offset(-2, -2),
+                            blurRadius: 10),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(left: 40, top: 50),
+                          child: Text(
+                            'Cyberwatch',
+                            style: GoogleFonts.montserrat(
+                              textStyle: Theme.of(context).textTheme.display1,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 40),
+                          child: Text(
+                            'Lab 01',
+                            style: GoogleFonts.londrinaOutline(
+                              textStyle: Theme.of(context).textTheme.display1,
+                              fontSize: 28,
+                              letterSpacing: 2,
+                              color: DarkColor.lightGrey,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: 40, top: 20, bottom: 20),
+                          child: Text(
+                            'release: 23.06.2020',
+                            style: GoogleFonts.montserrat(
+                              textStyle: Theme.of(context).textTheme.display1,
+                              fontSize: 15,
+                              color: Color(0xff797878),
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 40),
-                    child: Text(
-                      'Lab 01',
-                      style: GoogleFonts.londrinaOutline(
-                        textStyle: Theme.of(context).textTheme.display1,
-                        fontSize: 28,
-                        letterSpacing: 2,
-                        color: DarkColor.lightGrey,
-                        fontWeight: FontWeight.w700,
-                        fontStyle: FontStyle.normal,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 40, top: 20, bottom: 20),
-                    child: Text(
-                      'release: 23.06.2020',
-                      style: GoogleFonts.montserrat(
-                        textStyle: Theme.of(context).textTheme.display1,
-                        fontSize: 15,
-                        color: Color(0xff797878),
-                        fontWeight: FontWeight.w700,
-                        fontStyle: FontStyle.normal,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                )),
           ),
         ),
         Positioned(
@@ -189,9 +229,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         Align(
-          alignment: Alignment.topCenter,
-          child: Image.asset('assets/watch.png', height: MediaQuery.of(context).size.height * .28 ,)
-        )
+            alignment: Alignment.topCenter,
+            child: Hero(
+                tag: 'watch',
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/detail');
+                  },
+                  child: Image.asset(
+                    'assets/watch.png',
+                    height: MediaQuery.of(context).size.height * .28,
+                  ),
+                )))
       ],
     );
   }
@@ -233,7 +282,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
- 
   Widget _slideCountCircle() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

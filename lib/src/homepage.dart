@@ -192,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              _sideRotatedText('Cyber time', true),
+              _sideRotatedText('Cybertime', true),
               SizedBox(
                 height: 50,
               ),
@@ -219,9 +219,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _sideRotatedText(String text, bool enable) {
     return RotatedBox(
-      quarterTurns: 1,
+      quarterTurns: 3,
       child: Column(
         children: <Widget>[
+          Container(
+            height: 3,
+            width: enable ? 70 : 0,
+            decoration: AppTheme.getDecoration(context, borderRadius: 10),
+          ),
+          SizedBox(height: 15),
           Text(
             text,
             style: TextStyle(
@@ -231,12 +237,8 @@ class _MyHomePageState extends State<MyHomePage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 20),
-          Container(
-            height: 3,
-            width: enable ? 70 : 0,
-            decoration: AppTheme.getDecoration(context, borderRadius: 10),
-          ),
+          
+          
         ],
       ),
     );

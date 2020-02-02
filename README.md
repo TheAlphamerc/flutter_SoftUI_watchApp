@@ -1,4 +1,4 @@
-## flutter_SoftUI_watchApp  [![GitHub stars](https://img.shields.io/github/stars/Thealphamerc/flutter_SoftUI_watchApp?style=social)](https://github.com/login?return_to=%2FTheAlphamerc%flutter_SoftUI_watchApp)
+## flutter_SoftUI_watchApp  [![GitHub stars](https://img.shields.io/github/stars/Thealphamerc/flutter_SoftUI_watchApp?style=social)](https://github.com/login?return_to=%2FTheAlphamerc%flutter_SoftUI_watchApp) ![Dart CI](https://github.com/TheAlphamerc/flutter_SoftUI_watchApp/workflows/Dart%20CI/badge.svg)
 
 ## Feature
  * Light Mode
